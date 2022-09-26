@@ -1,0 +1,62 @@
+http:
+  routers:
+    cluster-1:
+      rule: "Path(`/app`) && Headers(`cluster`, `1`)"
+      entryPoints:
+        - "global-ingress"
+      service: cluster-1
+    cluster-2:
+      rule: "Path(`/app`) && Headers(`cluster`, `2`)"
+      entryPoints:
+        - "global-ingress"
+      service: cluster-2
+    cluster-3:
+      rule: "Path(`/app`) && Headers(`cluster`, `3`)"
+      entryPoints:
+        - "global-ingress"
+      service: cluster-3
+    cluster-4:
+      rule: "Path(`/app`) && Headers(`cluster`, `4`)"
+      entryPoints:
+        - "global-ingress"
+      service: cluster-4
+    cluster-5:
+      rule: "Path(`/app`) && Headers(`cluster`, `5`)"
+      entryPoints:
+        - "global-ingress"
+      service: cluster-5
+    app:
+      rule: "Path(`/app`)"
+      entryPoints:
+        - "global-ingress"
+      service: clusters
+
+  services:
+    clusters:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8081"
+          - url: "http://localhost:8082"
+          - url: "http://localhost:8083"
+          - url: "http://localhost:8084"
+          - url: "http://localhost:8085"
+    cluster-1:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8081"
+    clusters-2:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8082"
+    clusters-3:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8083"
+    clusters-4:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8084"
+    clusters-5:
+      loadBalancer:
+        servers:
+          - url: "http://localhost:8085"
